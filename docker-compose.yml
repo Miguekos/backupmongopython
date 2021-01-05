@@ -1,0 +1,10 @@
+version: '3'
+services:
+  backupmongo:
+    image: accesocrediticio/reporteatv1.0
+    build: .
+    command: python app.py pro
+    ports:
+      - 3064:8000
+
+
