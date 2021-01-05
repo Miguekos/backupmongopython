@@ -7,6 +7,7 @@ from pydantic import BaseModel, HttpUrl, Field
 from fastapi.responses import FileResponse
 from backup import backup_db, listar_db
 import socket
+import os
 hostname = socket.gethostname()
 IP = socket.gethostbyname(hostname)
 print("hostname:", hostname)
@@ -53,4 +54,10 @@ async def backupmongo(listar: Listar):
 
 
 if __name__ == "__main__":
+    try:
+        os.stat("tmp")
+        os.stat("dbs")
+    except:
+        os.mkdir("tmp")
+        os.mkdir("dbs")
     uvicorn.run("app:app", host="0.0.0.0", port=8000, log_level="info", reload=True, access_log=False)
