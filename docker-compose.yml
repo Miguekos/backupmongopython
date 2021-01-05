@@ -1,10 +1,13 @@
 version: '3'
 services:
   backupmongo:
-    image: accesocrediticio/reporteatv1.0
+#    image: backupmongo:1.0
     build: .
-    command: python app.py pro
+    command: python app.py
     ports:
       - 3064:8000
+    volumes:
+      - /usr/local/volumes/backupmongo/tmp:/tmp
+      - /usr/local/volumes/backupmongo/dbs:/dbs
 
 
