@@ -24,6 +24,8 @@ DerivedData
 project.xcworkspace
 pdf
 pdf/
+tmp
+dbs
 # node.js
 #
 node_modules/
