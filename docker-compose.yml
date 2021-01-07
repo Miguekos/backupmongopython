@@ -7,7 +7,9 @@ services:
     ports:
       - 3064:8000
     volumes:
-      - /usr/local/volumes/backupmongo/tmp:/tmp
-      - /usr/local/volumes/backupmongo/dbs:/dbs
+      - backupmongo_dbs:/dbs
+      - backupmongo_tmp:/tmp
 
-
+volumes:
+  backupmongo_dbs:
+  backupmongo_tmp:

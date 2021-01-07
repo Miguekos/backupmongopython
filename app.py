@@ -10,8 +10,6 @@ import socket
 import os
 hostname = socket.gethostname()
 IP = socket.gethostbyname(hostname)
-print("hostname:", hostname)
-print("IP:", IP)
 
 app = FastAPI()
 
@@ -42,7 +40,7 @@ async def backupmongo(backup: Backup):
     # print(back_up_dict["db"])
     backup_db(back_up_dict)
     return {
-        "url": "http://{}:8000/file/{}.zip".format(IP, back_up_dict["db"])
+        "url": "http://95.111.235.214:3064/file/{}.zip".format(IP, back_up_dict["db"])
     }
 
 
@@ -54,10 +52,11 @@ async def backupmongo(listar: Listar):
 
 
 if __name__ == "__main__":
+    print("hostname:", hostname)
+    print("IP:", IP)
     try:
-        os.stat("tmp")
-        os.stat("dbs")
-    except:
         os.mkdir("tmp")
         os.mkdir("dbs")
+    except:
+        pass
     uvicorn.run("app:app", host="0.0.0.0", port=8000, log_level="info", reload=True, access_log=False)
