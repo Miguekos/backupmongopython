@@ -40,7 +40,7 @@ async def backupmongo(backup: Backup):
     # print(back_up_dict["db"])
     backup_db(back_up_dict)
     return {
-        "url": "http://95.111.235.214:3064/file/{}.zip".format(IP, back_up_dict["db"])
+        "url": "http://95.111.235.214:3064/file/{}.zip".format(back_up_dict["db"])
     }
 
 
