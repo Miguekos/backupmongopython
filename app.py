@@ -35,7 +35,7 @@ async def main(name):
 
 @app.post("/backup")
 async def backupmongo(backup: Backup):
-    print(backup)
+    print("backup", backup)
     back_up_dict = backup.dict()
     # print(back_up_dict["db"])
     backup_db(back_up_dict)
