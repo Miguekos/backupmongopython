@@ -4,6 +4,8 @@ from bson.json_util import dumps, JSONOptions, DatetimeRepresentation
 # from bson.json_util import load
 import json
 import os
+import shutil
+import datetime
 
 
 def slice(sourcedict, string):
@@ -51,8 +53,8 @@ def backup_db(backup):
         with open(temp_filepath, "w") as f:
             for doc in database.get_collection(collection_name).find():
                 f.write(dumps(doc, json_options=json_options) + "\n")
-    import shutil
-    shutil.make_archive("./tmp/{}".format(backup["db"]), 'zip', "./dbs/{}".format(backup["db"]))
+    fecha = datetime.datetime.now().strftime("%Y_%m_%d")
+    shutil.make_archive("./tmp/{}_{}".format(backup["db"], fecha), 'zip', "./dbs/{}".format(backup["db"]))
 
 
 def restore_db(backup_file):

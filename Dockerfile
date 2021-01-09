@@ -10,4 +10,6 @@ RUN pip install -r requirements.txt
 
 COPY   . /app
 
+#VOLUME /app/dbs /app/tmp
+
 EXPOSE 3064

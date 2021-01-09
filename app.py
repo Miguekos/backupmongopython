@@ -8,6 +8,7 @@ from fastapi.responses import FileResponse
 from backup import backup_db, listar_db
 import socket
 import os
+
 hostname = socket.gethostname()
 IP = socket.gethostbyname(hostname)
 
@@ -39,8 +40,9 @@ async def backupmongo(backup: Backup):
     back_up_dict = backup.dict()
     # print(back_up_dict["db"])
     backup_db(back_up_dict)
+    fecha = datetime.now().strftime("%Y_%m_%d")
     return {
-        "url": "http://95.111.235.214:3064/file/{}.zip".format(back_up_dict["db"])
+        "url": "http://95.111.235.214:3064/file/{}_{}.zip".format(back_up_dict["db"], fecha)
     }
 
 
@@ -59,4 +61,4 @@ if __name__ == "__main__":
         os.mkdir("dbs")
     except:
         pass
-    uvicorn.run("app:app", host="0.0.0.0", port=8000, log_level="info", reload=True, access_log=False)
+    uvicorn.run("app:app", host="0.0.0.0", port=8000, log_level="info", reload=True, access_log=True)

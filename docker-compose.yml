@@ -1,15 +1,15 @@
 version: '3'
 services:
-  backupmongo:
+  app:
 #    image: backupmongo:1.0
     build: .
     command: python app.py
     ports:
       - 3064:8000
     volumes:
-      - ./dbs:/dbs
-      - ./tmp:/tmp
+      - backupmongo_dbs:/app/dbs
+      - backupmongo_tmp:/app/tmp
 
-#volumes:
-#  backupmongo_dbs:
-#  backupmongo_tmp:
+volumes:
+  backupmongo_dbs:
+  backupmongo_tmp:
