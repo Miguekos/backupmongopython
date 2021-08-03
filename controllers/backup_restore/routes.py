@@ -109,6 +109,33 @@ async def backuprestore(backup: BackupRestore):
             "datail": e
         }
 
+@backup_restore_router.post("/restore")
+async def restore(backup: BackupRestore):
+    try:
+        back_up_dict = backup.dict()
+        # bac = backup_db(back_up_dict)
+        # print("bac", bac)
+        if back_up_dict['restore']:
+            res = restore_db(back_up_dict)
+            # print("res", res)
+            fecha = datetime.now().strftime("%Y_%m_%d")
+            return {
+                # "url": "http://95.111.235.214:3064/file/{}_{}.zip".format(back_up_dict["db"], fecha),
+                # "url": bac,
+                "restore" : res if res != None else "No existe"
+            }
+        else:
+            return {
+                # "url": "http://95.111.235.214:3064/file/{}_{}.zip".format(back_up_dict["db"], fecha),
+                # "url": bac,
+                "restore": "false"
+            }
+    except Exception as e:
+        return {
+            # "url": "http://95.111.235.214:3064/file/{}_{}.zip".format(back_up_dict["db"], fecha),
+            # "url": bac,
+            "datail": e
+        }
 
 @backup_restore_router.post("/listarTablas")
 async def listarTablas(listar: Listar):
