@@ -114,10 +114,10 @@ def restore_db(backup):
                             # print("data",data)
                             x = mycol.insert_many(data)
                             print("inserted_id", len(x.inserted_ids))
-                        except Exception as e:
+                        except ValueError as e:
                             print("Exception", e)
                             return e
         return "Done"
-    except Exception as e:
+    except ValueError as e:
         print("Exception", e)
         return e

@@ -130,7 +130,7 @@ async def restore(backup: BackupRestore):
                 # "url": bac,
                 "restore": "false"
             }
-    except Exception as e:
+    except ValueError as e:
         return {
             # "url": "http://95.111.235.214:3064/file/{}_{}.zip".format(back_up_dict["db"], fecha),
             # "url": bac,
