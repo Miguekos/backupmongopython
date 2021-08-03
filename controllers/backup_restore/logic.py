@@ -93,19 +93,21 @@ def restore_db(backup):
             else:
                 # print("collect", collect)
                 # print("ar", ruta)
-                with open(ruta, 'r') as f:
-                    d = f.read().splitlines()
-                    if len(d) == 0:
-                        print("collections {} empty".format(collect))
-                        pass
-                    else:
+                with open(ruta, 'r') as myfile:
+                    # for line in myfile:
+                        # d = line.read().splitlines()
+                        # print(line.rstrip("\n"))
+                        # if len(myfile) == 0:
+                        #     print("collections {} empty".format(collect))
+                        #     pass
+                        # else:
                         # print("d",d)
                         data = []
-                        for num, h in enumerate(d):
+                        for num, h in enumerate(myfile):
                             # print("h", type(h))
                             if num % 2000 == 0:
                                 print("{} de la collections: {} -- y el doc es {} '\n'".format(num, collect, h))
-                            h = loads(h)
+                            h = loads(h.rstrip("\n"))
                             data.append(h)
                             # print(h)
                             # h['_id'] = str(h['_id']['$oid'])
