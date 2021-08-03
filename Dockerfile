@@ -1,15 +1,13 @@
-FROM python:3.6
+FROM python:3.6-slim
 WORKDIR /app
 
-COPY   ./requirements.txt /app
+COPY ./requirements.txt /app
 
+RUN pip install -r requirements.txt
 RUN mkdir -p logs
 RUN mkdir -p temp
 RUN mkdir -p dbs
-RUN pip install -r requirements.txt
 
-COPY   . /app
+COPY . /app
 
-#VOLUME /app/dbs /app/tmp
-
-EXPOSE 3064
+EXPOSE 8000

@@ -2,5 +2,7 @@
 .gitignore
 /env/
 /venv/
+/dbs/
+/tmp/
 /envExport/
 *.xlsx

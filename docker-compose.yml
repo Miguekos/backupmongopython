@@ -1,26 +1,19 @@
 version: '3'
 services:
   app:
-    #    image: backupmongo:1.0
     build: .
-    command: python app.py
+    command: uvicorn main:app --host "0.0.0.0" --port 8000 --log-level "info" --reload
     ports:
       - 3064:8000
     volumes:
       - backupmongo_dbs:/app/dbs
       - backupmongo_tmp:/app/tmp
-#    logging:
-#      driver: "json-file"
-#      options:
-#        max-file: 5
-#        max-size: 10m
-#        labels: backupmongo
-
     logging:
-      driver: "syslog"
+      driver: "json-file"
       options:
-        syslog-address: "tcp://207.244.232.99:4040"
-
+        max-file: "5"
+        max-size: 10m
+        labels: backupmongo
 
 volumes:
   backupmongo_dbs:
