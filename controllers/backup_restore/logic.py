@@ -107,15 +107,17 @@ def restore_db(backup):
                             # print("h", type(h))
                             if num % 2000 == 0:
                                 print("{} de la collections: {} -- y el doc es {} '\n'".format(num, collect, h))
+                                x = mycol.insert_many(data)
+                                print("inserted_id", len(x.inserted_ids))
                             h = loads(h.rstrip("\n"))
                             data.append(h)
                             # print(h)
                             # h['_id'] = str(h['_id']['$oid'])
                             # print("h", json.loads(h))
                         try:
-                            # print("data",data)
-                            x = mycol.insert_many(data)
-                            print("inserted_id", len(x.inserted_ids))
+                            print("fin")
+                            # x = mycol.insert_many(data)
+                            # print("inserted_id", len(x.inserted_ids))
                         except ValueError as e:
                             print("Exception", e)
                             return e
