@@ -86,7 +86,7 @@ def restore_db(backup):
         for ar in listar_archivos:
             ruta = "./dbs/{}/{}".format(backup["db"], ar)
             collect = ar.split(".")[0]
-            if collect != "system.indexes":
+            if collect != "system":
                 mycol = database[collect]
                 if collect in collist:
                     # print("The collection exists.")
