@@ -104,24 +104,18 @@ def restore_db(backup):
                             h = loads(h)
                             data.append(h)
                             if num % 2000 == 0:
-                                cant = len(data)
-                                # print(cant)
-                                x = mycol.insert_many(data)
-                                # print("inserted_id", len(x.inserted_ids))
-                                # if cant != 0:
-                                #     print("cant",len(data))
-                                #     print(data)
-                                # else:
-                                #     x = mycol.insert_many(data)
-                                #     print("inserted_id", len(x.inserted_ids))
-                                # print("num", num)
-                                # print("{} de la collections: {} -- y el doc es {} '\n'".format(num, collect, h))
-                                counter = counter + len(x.inserted_ids)
-                                print("inserted_id", counter)
-                                data.clear()
-                        x = mycol.insert_many(data)
-                        # print("inserted_id", len(x.inserted_ids))
-                        print("inserted_id", counter + len(x.inserted_ids))
+                                try:
+                                    x = mycol.insert_many(data)
+                                    counter = counter + len(x.inserted_ids)
+                                    print("inserted_id", counter)
+                                    data.clear()
+                                except:
+                                    pass
+                        try:
+                            x = mycol.insert_many(data)
+                            print("inserted_id", counter + len(x.inserted_ids))
+                        except:
+                            pass
                     except Exception as e:
                         print("Exception", e)
                         return e
