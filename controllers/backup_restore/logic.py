@@ -86,81 +86,84 @@ def restore_db(backup):
         for ar in listar_archivos:
             ruta = "./dbs/{}/{}".format(backup["db"], ar)
             collect = ar.split(".")[0]
-            mycol = database[collect]
-            if collect in collist:
-                # print("The collection exists.")
-                return "The collection exists."
+            if collect != "system.indexes":
+                mycol = database[collect]
+                if collect in collist:
+                    # print("The collection exists.")
+                    return "The collection exists."
+                else:
+                    # print("collect", collect)
+                    # print("ar", ruta)
+                    # with open(ruta, 'r') as myfile:
+                    # for line in open(ruta, 'r'):
+                    try:
+                        counter = 0
+                        data = []
+                        for num, h in enumerate(open(ruta, 'r')):
+                            # print("num", num % 100)
+                            h = loads(h)
+                            data.append(h)
+                            if num % 2000 == 0:
+                                cant = len(data)
+                                # print(cant)
+                                x = mycol.insert_many(data)
+                                # print("inserted_id", len(x.inserted_ids))
+                                # if cant != 0:
+                                #     print("cant",len(data))
+                                #     print(data)
+                                # else:
+                                #     x = mycol.insert_many(data)
+                                #     print("inserted_id", len(x.inserted_ids))
+                                # print("num", num)
+                                # print("{} de la collections: {} -- y el doc es {} '\n'".format(num, collect, h))
+                                counter = counter + len(x.inserted_ids)
+                                print("inserted_id", counter)
+                                data.clear()
+                        x = mycol.insert_many(data)
+                        # print("inserted_id", len(x.inserted_ids))
+                        print("inserted_id", counter + len(x.inserted_ids))
+                    except Exception as e:
+                        print("Exception", e)
+                        return e
+                    # print(data)
+                        # else:
+                        #     x = mycol.insert_many(data)
+                        #     print("inserted_id", len(x.inserted_ids))
+                        #     data.clear()
+                        # data.append(h)
+                        # for line in myfile:
+                        #     # d = line.read().splitlines()
+                        #     print(line.rstrip("\n"))
+                        #     # if len(myfile) == 0:
+                        #     #     print("collections {} empty".format(collect))
+                        #     #     pass
+                        #     # else:
+                        #     # print("d",d)
+                        #     data = []
+                        #     for num, h in enumerate(myfile):
+                        #         # print("h", type(h))
+                        #         if num > 2000:
+                        #             print("data_for_insert", data)
+                        #         if num % 2000 == 0:
+                        #             pass
+                        #             # print("num", num)
+                        #             # print("{} de la collections: {} -- y el doc es {} '\n'".format(num, collect, h))
+                        #             # x = mycol.insert_many(data)
+                        #             # print("inserted_id", len(x.inserted_ids))
+                        #         h = loads(h.rstrip("\n"))
+                        #         data.append(h)
+                        #         # print(h)
+                        #         # h['_id'] = str(h['_id']['$oid'])
+                        #         # print("h", json.loads(h))
+                        #     try:
+                        #         print("fin")
+                        #         # x = mycol.insert_many(data)
+                        #         # print("inserted_id", len(x.inserted_ids))
+                        #     except ValueError as e:
+                        #         print("Exception", e)
+                        #         return e
             else:
-                # print("collect", collect)
-                # print("ar", ruta)
-                # with open(ruta, 'r') as myfile:
-                # for line in open(ruta, 'r'):
-                try:
-                    counter = 0
-                    data = []
-                    for num, h in enumerate(open(ruta, 'r')):
-                        # print("num", num % 100)
-                        h = loads(h)
-                        data.append(h)
-                        if num % 2000 == 0:
-                            cant = len(data)
-                            # print(cant)
-                            x = mycol.insert_many(data)
-                            # print("inserted_id", len(x.inserted_ids))
-                            # if cant != 0:
-                            #     print("cant",len(data))
-                            #     print(data)
-                            # else:
-                            #     x = mycol.insert_many(data)
-                            #     print("inserted_id", len(x.inserted_ids))
-                            # print("num", num)
-                            # print("{} de la collections: {} -- y el doc es {} '\n'".format(num, collect, h))
-                            counter = counter + len(x.inserted_ids)
-                            print("inserted_id", counter)
-                            data.clear()
-                    x = mycol.insert_many(data)
-                    # print("inserted_id", len(x.inserted_ids))
-                    print("inserted_id", counter + len(x.inserted_ids))
-                except Exception as e:
-                    print("Exception", e)
-                    return e
-                # print(data)
-                    # else:
-                    #     x = mycol.insert_many(data)
-                    #     print("inserted_id", len(x.inserted_ids))
-                    #     data.clear()
-                    # data.append(h)
-                    # for line in myfile:
-                    #     # d = line.read().splitlines()
-                    #     print(line.rstrip("\n"))
-                    #     # if len(myfile) == 0:
-                    #     #     print("collections {} empty".format(collect))
-                    #     #     pass
-                    #     # else:
-                    #     # print("d",d)
-                    #     data = []
-                    #     for num, h in enumerate(myfile):
-                    #         # print("h", type(h))
-                    #         if num > 2000:
-                    #             print("data_for_insert", data)
-                    #         if num % 2000 == 0:
-                    #             pass
-                    #             # print("num", num)
-                    #             # print("{} de la collections: {} -- y el doc es {} '\n'".format(num, collect, h))
-                    #             # x = mycol.insert_many(data)
-                    #             # print("inserted_id", len(x.inserted_ids))
-                    #         h = loads(h.rstrip("\n"))
-                    #         data.append(h)
-                    #         # print(h)
-                    #         # h['_id'] = str(h['_id']['$oid'])
-                    #         # print("h", json.loads(h))
-                    #     try:
-                    #         print("fin")
-                    #         # x = mycol.insert_many(data)
-                    #         # print("inserted_id", len(x.inserted_ids))
-                    #     except ValueError as e:
-                    #         print("Exception", e)
-                    #         return e
+                print("collect", collect)
         return "Done"
     except ValueError as e:
         print("Exception", e)
