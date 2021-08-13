@@ -29,7 +29,7 @@ class ReporteProcess:
         start_time = time.time()
 
         # make an API call to the MongoDB server
-        cursor = col.find(self.query).projection(self.projection)
+        cursor = col.find(self.query, self.projection)
 
         # extract the list of documents from cursor obj
         mongo_docs = list(cursor)
