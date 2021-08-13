@@ -8,6 +8,7 @@ class Reportes(BaseModel):
     db: str
     collection: str
     query: dict
+    projection: dict
     skip : int = 0
     limit : int = 100
     namereport: str

@@ -16,6 +16,7 @@ class ReporteProcess:
         self.collection = object['collection']
         self.nombre_del_reporte = object['namereport']
         self.query = object['query']
+        self.projection = object['projection']
 
     def inicio(self):
         # build a new client instance of MongoClient
@@ -28,7 +29,7 @@ class ReporteProcess:
         start_time = time.time()
 
         # make an API call to the MongoDB server
-        cursor = col.find(self.query)
+        cursor = col.find(self.query).projection(self.projection)
 
         # extract the list of documents from cursor obj
         mongo_docs = list(cursor)
